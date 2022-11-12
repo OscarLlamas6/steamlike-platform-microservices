@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<style>
+    h1 {
+        color:blueviolet
+    }
+
+    h3 {
+        color:#5cd947
+    }
+
+    body {
+        background-color: #001133;
+        color:beige;
+    }
+
+</style>
+<body>
+    <h1> <b> {{ username }} </b> aquí está la confirmación de tu compra </h1>
+    <h3> Fecha de la compra: {{ saleDate }}</h3>
+    <ul>
+    {{#each details}}
+        <li> Name: {{ name }}  | Subtotal: Q. {{ subTotal }}</li>
+    {{/each}}
+    </ul>
+    <h3> Total: Q. {{ total }}</h3>
+</body>
+</html>

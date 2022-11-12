@@ -1,0 +1,32 @@
+{
+  "name": "sales-email",
+  "version": "1.0.0",
+  "description": "RabbitMQ Sale email suscriber",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "build-ts": "tsc",
+    "dev-ts": "tsc -w",
+    "dev-sv": "nodemon dist/index.js",
+    "start": "node dist/index.js",
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\""
+  },
+  "author": "Oscar A. Llamas",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/amqplib": "^0.8.2",
+    "@types/dotenv": "^8.2.0",
+    "@types/nodemailer": "^6.4.4",
+    "@types/nodemailer-express-handlebars": "^4.0.2",
+    "@types/uuid": "^8.3.3",
+    "concurrently": "^6.2.1",
+    "nodemon": "^2.0.12",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "dotenv": "^10.0.0",
+    "nodemailer": "^6.7.2",
+    "nodemailer-express-handlebars": "^4.0.0"
+  }
+}

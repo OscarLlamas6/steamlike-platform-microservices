@@ -1,0 +1,41 @@
+{
+  "name": "middleware",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "author": "Oscar A. Llamas",
+  "scripts": {
+    "build-ts": "tsc",
+    "dev-ts": "tsc -w",
+    "dev-sv": "nodemon dist/index.js",
+    "start": "node dist/index.js",
+    "dev": "concurrently \"tsc -w\" \"nodemon dist/index.js\""
+  },
+  "keywords": [],
+  "license": "ISC",
+  "devDependencies": {
+    "@types/cors": "^2.8.12",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.13",
+    "@types/express-fileupload": "^1.2.0",
+    "@types/jsonwebtoken": "^8.5.4",
+    "@types/morgan": "^1.9.3",
+    "concurrently": "^6.2.1",
+    "nodemon": "^2.0.12",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "@types/crypto-js": "^4.0.2",
+    "axios": "^0.24.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
+    "express-handlebars": "^6.0.2",
+    "jsonwebtoken": "^8.5.1",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.0"
+  }
+}
