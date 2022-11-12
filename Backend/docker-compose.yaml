@@ -1,0 +1,219 @@
+version: "3.5"
+
+services:
+
+  middleware:
+    container_name: middleware
+    image: middleware
+    build:
+      context: ./Backend/middleware/
+      dockerfile: Dockerfile
+    env_file: ./Backend/middleware/.env.prod
+    depends_on:
+      - suscriber
+      - rabbitmq-server
+      - users-service
+      - mygames-service
+      - region-service
+      - wishlist-service
+      - developer-service
+      - catalogs-service
+      - games-service
+      - dlc-service
+      - discounts-service
+      - sales-service
+      - sales-email
+    links:
+      - users-service
+      - mygames-service
+      - region-service
+      - wishlist-service
+      - developer-service
+      - catalogs-service
+      - games-service
+      - dlc-service
+      - discounts-service
+      - sales-service
+      - sales-email
+    ports: 
+     - 5000:5000
+    restart: always
+    networks:
+      - service_network
+
+  suscriber:
+      container_name: suscriber
+      image: suscriber
+      build:
+        context: ./Backend/verify-email/
+        dockerfile: Dockerfile
+      env_file: ./Backend/verify-email/.env.prod
+      links:
+        - rabbitmq-server
+      depends_on:
+        - rabbitmq-server
+      restart: always
+      networks:
+        - service_network
+
+  rabbitmq-server:
+    image: rabbitmq:management-alpine
+    container_name: rabbitmq-server
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ./.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ./.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - service_network
+
+  users-service:
+    container_name: users-service
+    image: users-service
+    build:
+      context: ./Backend/users/
+      dockerfile: Dockerfile
+    env_file: ./Backend/users/.env.prod
+    links:
+     - rabbitmq-server
+    ports: 
+     - 3000:3000
+    restart: always
+    networks:
+      - service_network
+
+  mygames-service:
+    container_name: mygames-service
+    image: mygames-service
+    build:
+      context: ./Backend/mygames/
+      dockerfile: Dockerfile
+    env_file: ./Backend/mygames/.env.prod
+    ports: 
+     - 3001:3001
+    restart: always
+    networks:
+      - service_network
+
+  region-service:
+    container_name: region-service
+    image: region-service
+    build:
+      context: ./Backend/check-region/
+      dockerfile: Dockerfile
+    env_file: ./Backend/check-region/.env.prod
+    ports: 
+     - 3002:3002
+    restart: always
+    networks:
+      - service_network
+
+  wishlist-service:
+    container_name: wishlist-service
+    image: wishlist-service
+    build:
+      context: ./Backend/wishlist/
+      dockerfile: Dockerfile
+    env_file: ./Backend/wishlist/.env.prod
+    ports: 
+     - 3003:3003
+    restart: always
+    networks:
+      - service_network
+
+  developer-service:
+    container_name: developer-service
+    image: developer-service
+    build:
+      context: ./Backend/developers/
+      dockerfile: Dockerfile
+    env_file: ./Backend/developers/.env.prod
+    ports: 
+     - 3004:3004
+    restart: always
+    networks:
+      - service_network
+
+  catalogs-service:
+    container_name: catalogs-service
+    image: catalogs-service
+    build:
+      context: ./Backend/catalogs/
+      dockerfile: Dockerfile
+    env_file: ./Backend/catalogs/.env.prod
+    ports: 
+     - 3005:3005
+    restart: always
+    networks:
+      - service_network
+
+  games-service:
+    container_name: games-service
+    image: games-service
+    build:
+      context: ./Backend/games/
+      dockerfile: Dockerfile
+    env_file: ./Backend/games/.env.prod
+    ports: 
+     - 3006:3006
+    restart: always
+    networks:
+      - service_network
+
+  dlc-service:
+    container_name: dlc-service
+    image: dlc-service
+    build:
+      context: ./Backend/dlc/
+      dockerfile: Dockerfile
+    env_file: ./Backend/dlc/.env.prod
+    ports: 
+     - 3007:3007
+    restart: always
+    networks:
+      - service_network
+
+  discounts-service:
+    container_name: discounts-service
+    image: discounts-service
+    build:
+      context: ./Backend/discounts/
+      dockerfile: Dockerfile
+    env_file: ./Backend/discounts/.env.prod
+    ports: 
+     - 3008:3008
+    restart: always
+    networks:
+      - service_network
+
+  sales-service:
+    container_name: sales-service
+    image: sales-service
+    build:
+      context: ./Backend/sales/
+      dockerfile: Dockerfile
+    env_file: ./Backend/sales/.env.prod
+    ports: 
+     - 3009:3009
+    restart: always
+    networks:
+      - service_network
+
+  sales-email:
+    container_name: sales-email
+    image: sales-email
+    build:
+        context: ./Backend/sale-email/
+        dockerfile: Dockerfile
+    env_file: ./Backend/sale-email/.env.prod
+    links:
+        - rabbitmq-server
+    depends_on:
+        - rabbitmq-server
+    restart: always
+    networks:
+        - service_network
+networks:
+  service_network:
+    driver: bridge
